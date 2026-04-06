@@ -47,12 +47,10 @@ async def predict(file: UploadFile = None):
         # ✅ 3. Read & preprocess
         img_data = await file.read()
         img = Image.open(io.BytesIO(img_data))
+
+        # ✅ 3.1 Preprocess
         img = preprocess(img)
 
-        # img = img.resize(IMG_SIZE)
-        #
-        # img = np.array(img) / 255.0
-        # img = np.expand_dims(img, axis=0)
 
         # ✅ 4. Prediction
         pred = model.predict(img, verbose=0)[0]
