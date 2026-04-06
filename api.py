@@ -20,6 +20,7 @@ def preprocess(img):
 async def root():
     return {"message": "Hello World"}
 
+
 @app.post("/predict")
 async def predict(file: UploadFile):
     img_data = await file.read()
