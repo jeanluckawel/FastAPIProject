@@ -4,11 +4,26 @@ from typing import List
 from dotenv import load_dotenv
 import numpy as np
 from fastapi import FastAPI, UploadFile, HTTPException
+from starlette.middleware.cors import CORSMiddleware
 from tensorflow.keras.models import load_model
 import io
 from PIL import Image
 
 app = FastAPI()
+
+origins = [
+    "https://gjp-face-reconizer.test",  # Herd domain
+    "http://localhost:3000",
+    "http://localhost:8000",            # Default Laravel's Domain
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 load_dotenv()
 
