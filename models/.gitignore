@@ -1,0 +1,6 @@
+# Excluded Models
+
+*.pt
+*.h5
+*.keras
+*.pkl
