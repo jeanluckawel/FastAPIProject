@@ -3,11 +3,12 @@ from typing import List
 
 from dotenv import load_dotenv
 import numpy as np
-from fastapi import FastAPI, UploadFile, HTTPException
+from fastapi import FastAPI, UploadFile, HTTPException, File
 from starlette.middleware.cors import CORSMiddleware
 from tensorflow.keras.models import load_model
 import io
 from PIL import Image
+from ultralytics import YOLO
 
 app = FastAPI()
 
@@ -68,7 +69,7 @@ async def predict(file: UploadFile = None):
 
 
         # ✅ 4. Prediction
-        pred = model.predict(img, verbose=0)[0]
+        pred = model.predict(img, verbose=False)[0]
 
         # ✅ 5. Top prediction
         pred_index = int(np.argmax(pred))
@@ -93,3 +94,31 @@ async def predict(file: UploadFile = None):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+DETECTION_MODEL_PATH = os.getenv("DETECTION_MODEL")
+
+# Load your custom trained model
+model = YOLO(DETECTION_MODEL_PATH)
+
+@app.post("/detect")
+async def predict(file: UploadFile = File(...)):
+    # Read the uploaded image
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents))
+    img_array = np.array(image)
+
+    # Run inference
+    results = model(img_array)
+
+    # Format detections to JSON
+    detections = []
+    for r in results:
+        for box in r.boxes:
+            detections.append({
+                "class": model.names[int(box.cls)],
+                "confidence": float(box.conf),
+                "bbox": [float(x) for x in box.xyxy[0]]
+            })
+
+    return {"detections": detections}
