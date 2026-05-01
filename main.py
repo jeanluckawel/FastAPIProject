@@ -44,6 +44,13 @@ def preprocess(img):
     img = np.expand_dims(img, axis=0)
     return img
 
+def yolow_preprocess(img):
+    if img.mode != "RGB":
+        img = img.convert("RGB")
+    img = np.array(img)
+
+    return img
+
 @app.get("/")
 async def root():
     return {"message": "Future Start Now"}
@@ -99,24 +106,24 @@ async def predict(file: UploadFile = None):
 DETECTION_MODEL_PATH = os.getenv("DETECTION_MODEL")
 
 # Load your custom trained model
-model = YOLO(DETECTION_MODEL_PATH)
+detection_model = YOLO(DETECTION_MODEL_PATH)
 
 @app.post("/detect")
 async def predict(file: UploadFile = File(...)):
     # Read the uploaded image
     contents = await file.read()
     image = Image.open(io.BytesIO(contents))
-    img_array = np.array(image)
+    img_array = yolow_preprocess(image)
 
     # Run inference
-    results = model(img_array)
+    results = detection_model(img_array)
 
     # Format detections to JSON
     detections = []
     for r in results:
         for box in r.boxes:
             detections.append({
-                "class": model.names[int(box.cls)],
+                "class": detection_model.names[int(box.cls)],
                 "confidence": float(box.conf),
                 "bbox": [float(x) for x in box.xyxy[0]]
             })
