@@ -9,3 +9,158 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+{
+    "Âge": 35,
+    "Température": 36.5,
+    "SpO2": 98.0,
+    "Poids": 70.0,
+    "Pouls": 80.0,
+    "Systolic_BP": 120.0,
+    "Diastolic_BP": 80.0,
+    "Sexe": "F",
+    "État Civil": "Marié(e)",
+    "État Général": "Conservé",
+    "Capacité Physique": "Top",
+    "combined_text": "Maux de tête et fatigue depuis 3 jours"
+}
+###
+###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Âge": 62,
+  "Température": 38.9,
+  "SpO2": 91.0,
+  "Poids": 82.5,
+  "Pouls": 110.0,
+  "Systolic_BP": 145.0,
+  "Diastolic_BP": 95.0,
+  "Sexe": "M",
+  "État Civil": "Marié(e)",
+  "État Général": "Altéré",
+  "Capacité Physique": "Bas",
+  "combined_text": "Fièvre élevée, essoufflement et fatigue persistante"
+}
+###
+
+#CLAUDE SAMPLES
+###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+{
+    "label": "Cas A — Classe 0",
+    "Âge": 30,
+    "Température": 36.7,
+    "SpO2": 98.0,
+    "Poids": 58.0,
+    "Pouls": 74.0,
+    "Systolic_BP": 115.0,
+    "Diastolic_BP": 72.0,
+    "Sexe": "F",
+    "État Civil": "Célibataire",
+    "État Général": "Conservé",
+    "Capacité Physique": "Top",
+    "combined_text": "Consultation de routine. Fatigue légère depuis une semaine, pas d'antécédents particuliers. Patiente asymptomatique par ailleurs."
+}
+###
+#CLAUDE SAMPLES 2
+###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+  {
+    "label": "Cas B — Classe 0",
+    "Âge": 45,
+    "Température": 37.1,
+    "SpO2": 97.0,
+    "Poids": 75.0,
+    "Pouls": 82.0,
+    "Systolic_BP": 122.0,
+    "Diastolic_BP": 78.0,
+    "Sexe": "M",
+    "État Civil": "Marié(e)",
+    "État Général": "Conservé",
+    "Capacité Physique": "Moyen",
+    "combined_text": "Douleurs lombaires légères depuis 2 jours après effort. Rhinite virale en cours de résolution. Suivi habituel."
+  }
+###
+#CLAUDE SAMPLES 3
+###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+  {
+    "label": "Cas C — Classe 1",
+    "Âge": 46,
+    "Température": 37.4,
+    "SpO2": 94.0,
+    "Poids": 62.0,
+    "Pouls": 112.0,
+    "Systolic_BP": 188.0,
+    "Diastolic_BP": 132.0,
+    "Sexe": "F",
+    "État Civil": "Marié(e)",
+    "État Général": "Altéré",
+    "Capacité Physique": "Bas",
+    "combined_text": "Maux de tête intenses et vertiges depuis 3 jours. Toux sèche, rhinorrhée claire. Antécédents d'hypertension non contrôlée."
+  }
+###
+#CLAUDE SAMPLES 4
+###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+{
+    "label": "Cas D — Classe 1",
+    "Âge": 8,
+    "Température": 38.5,
+    "SpO2": 95.0,
+    "Poids": 20.0,
+    "Pouls": 110.0,
+    "Systolic_BP": 105.0,
+    "Diastolic_BP": 67.0,
+    "Sexe": "M",
+    "État Civil": "Célibataire",
+    "État Général": "Altéré",
+    "Capacité Physique": "Bas",
+    "combined_text": "Céphalées, douleurs abdominales et bouffissure du visage depuis 3 jours. Enfant apathique, oligurie signalée par la mère."
+}
+####CLAUDE SAMPLES 5 more specific
+###
+
+POST http://127.0.0.1:8000/advise
+Content-Type: application/json
+Accept: application/json
+
+  {
+    "Âge": 35,
+    "Température": 40.1,
+    "SpO2": 90.0,
+    "Poids": 60.0,
+    "Pouls": 125.0,
+    "Systolic_BP": 85.0,
+    "Diastolic_BP": 55.0,
+    "Sexe": "F",
+    "État Civil": "Célibataire",
+    "État Général": "Altéré",
+    "Capacité Physique": "Bas",
+    "combined_text": "Fièvre très élevée avec frissons intenses, douleurs abdominales diffuses et ictère depuis 3 jours. Patiente en provenance d'une zone palustre, état de choc, oligurie."
+  }
+###
